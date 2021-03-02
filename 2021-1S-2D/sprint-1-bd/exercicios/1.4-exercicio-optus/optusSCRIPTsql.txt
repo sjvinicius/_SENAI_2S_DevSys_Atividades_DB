@@ -1,0 +1,45 @@
+CREATE DATABASE optus
+
+CREATE TABLE Artista (
+
+	IdArtista		INT PRIMARY KEY IDENTITY
+	,Nome			VARCHAR(25) NOT NULL
+
+)
+
+CREATE TABLE Plataformas (
+
+	IdPlataforma	INT	PRIMARY KEY	IDENTITY
+	,Email			VARCHAR		NOT NULL
+	,Senha			VARCHAR		NOT NULL
+
+)
+
+CREATE TABLE Usuarios (
+
+	IdUsuario		INT	PRIMARY KEY	IDENTITY
+	,IdPlataformas	INT	FOREIGN KEY	REFERENCES	Plataformas(IdPlataforma)
+
+)
+
+CREATE TABLE Albuns(
+
+	IdAlbuns	INT PRIMARY KEY IDENTITY
+	,Estilo		VARCHAR	NOT NULL
+	,IdArtista	VARCHAR	NOT NULL
+
+)
+
+CREATE TABLE Estilos (
+
+	IdEstilo	VARCHAR		PRIMARY KEY NOT NULL
+	,Nome		VARCHAR		NOT NULL
+
+)
+
+CREATE TABLE AlbumEstilos(
+
+	IdEstilo	VARCHAR		FOREIGN KEY REFERENCES Estilos(IdEstilo)
+	,IdAlbum	VARCHAR		PRIMARY KEY NOT NULL
+
+);

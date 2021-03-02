@@ -1,0 +1,69 @@
+CREATE DATABASE pclinics
+
+USE pclinics
+
+CREATE TABLE Clinicas (
+
+	IdClinicas		INT PRIMARY KEY IDENTITY
+	,RazaoSocial	VARCHAR(35)	NOT NULL
+	,CNPJ			VARCHAR(16)	NOT NULL
+	,Endereco		VARCHAR(40) NOT NULL
+
+)
+
+CREATE TABLE Veterinarios (
+
+	IdVeterinarios	INT PRIMARY KEY IDENTITY
+	,IdClinicas		INT FOREIGN KEY REFERENCES Clinicas(IdClinicas)
+	,Nomes			VARCHAR(30)	NOT NULL
+	,CRMV			VARCHAR(11)	NOT NULL
+
+)
+
+CREATE TABLE Atendimentos (
+
+	IdAtendimentoS	INT	PRIMARY KEY IDENTITY
+	,IdVeterinarios	INT FOREIGN KEY REFERENCES Veterinarios(IdVeterinarios)
+	,Descricao		VARCHAR(150)
+	,DataAtend		DATE	NOT NULL
+
+)
+
+CREATE TABLE Racas (
+
+	IdRacas		INT PRIMARY KEY IDENTITY
+	,Nome		VARCHAR(15)
+
+)
+
+CREATE TABLE Pets (
+
+	IdPets				INT PRIMARY KEY IDENTITY
+	,IdAtendimentos		INT FOREIGN KEY REFERENCES Atendimentos(IdAtendimentos)
+	,IdRacas			INT FOREIGN KEY REFERENCES Racas(IdRacas)
+	,Nomes				VARCHAR(15) NOT NULL
+	,DataNasc			DATE		NOT NULL
+
+)
+
+CREATE TABLE Donos (
+
+	IdDonos		INT PRIMARY KEY IDENTITY
+	,IdPets		INT FOREIGN KEY REFERENCES Pets(IdPets)
+	,Nomes		VARCHAR(30)	NOT NULL
+
+)
+
+
+
+CREATE TABLE TiposPets (
+
+	IdTiposPets		INT PRIMARY KEY IDENTITY
+	,IdRacas			INT FOREIGN KEY REFERENCES Racas(IdRacas)
+	,Descricao		VARCHAR(150)
+
+)
+
+ALTER TABLE Racas
+
+ADD IdPets	INT FOREIGN KEY REFERENCES Pets(IdPets);
